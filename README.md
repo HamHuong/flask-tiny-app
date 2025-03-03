@@ -19,4 +19,4 @@
 
 3. Chạy ứng dụng
     ``` bash 
-python app.py
+   python app.py
