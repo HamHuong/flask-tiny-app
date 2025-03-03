@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+<div class="container">
+    <h3 align="center">Write a Blog</h3>
+    <form method="POST">
+        <div class="form-group">
+            <label for="content">Blog Content</label>
+            <textarea class="form-control" id="content" name="content" placeholder="Write your blog here" rows="5"></textarea>
+        </div>
+        <br>
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+    </form>
+    <hr>
+    <h4>All Posts</h4>
+    {% for post in posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="card-text">{{ post.content }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
