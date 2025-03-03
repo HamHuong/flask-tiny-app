@@ -14,7 +14,9 @@
    cd flask-tiny-app
 
 2. Cài đặt dependencies:
-pip install -r requirements.txt
+   ``` bash
+   pip install -r requirements.txt
 
 3. Chạy ứng dụng
+    ``` bash 
 python app.py
