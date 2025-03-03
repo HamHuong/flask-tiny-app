@@ -13,12 +13,15 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        # Tìm người dùng dựa trên email
-        user = next((u for u in users.values() if u['email'] == email), None)
-        if user and check_password_hash(user['password'], password):
-            # Tìm username bằng cách duyệt users và so sánh user
-            username = next((key for key, value in users.items() if value == user), None)
-            if username:
+        # Tìm username dựa trên email
+        username = next((key for key, user in users.items() if user['email'] == email), None)
+        print(f"Users during login: {users}")  # Debug: In trạng thái users
+        if username and username in users:
+            user = users[username]
+            if user['blocked']:
+                flash('Tài khoản của bạn đã bị khóa.', 'danger')
+                return render_template('login.html')
+            if check_password_hash(user['password'], password):
                 session['username'] = username
                 print(f"Session set: {session['username']}")  # Debug
                 return redirect('/')

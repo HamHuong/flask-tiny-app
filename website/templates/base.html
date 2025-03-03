@@ -26,8 +26,15 @@
         <div class="collapse navbar-collapse" id="navbar">
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/home" style="color: #000;">Home</a>
-            <a class="nav-item nav-link" href="/login" style="color: #000;">Login</a>
-            <a class="nav-item nav-link" href="/sign-up" style="color: #000;">Sign Up</a>
+            {% if session.username %}
+              {% if session.username == 'admin' %}
+                <a class="nav-item nav-link" href="/admin" style="color: #000;">Admin</a>
+              {% endif %}
+              <a class="nav-item nav-link" href="/logout" style="color: #000;">Logout</a>
+            {% else %}
+              <a class="nav-item nav-link" href="/login" style="color: #000;">Login</a>
+              <a class="nav-item nav-link" href="/sign-up" style="color: #000;">Sign Up</a>
+            {% endif %}
           </div>
         </div>
       </div>
