@@ -27,6 +27,8 @@
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/home" style="color: #000;">Home</a>
             {% if session.username %}
+              <a class="nav-item nav-link" href="/" style="color: #000;">Blog</a>
+              <a class="nav-item nav-link" href="/posts" style="color: #000;">Manage Posts</a>
               {% if session.username == 'admin' %}
                 <a class="nav-item nav-link" href="/admin" style="color: #000;">Admin</a>
               {% endif %}

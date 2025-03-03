@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Manage Posts{% endblock %}
+{% block content %}
+<div class="container">
+    <h3 align="center">Manage Your Posts</h3>
+    <form method="POST">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Content</th>
+                    <th>Posted By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="post_ids" value="{{ post.id }}">
+                    </td>
+                    <td>{{ post.content }}</td>
+                    <td>{{ post.user }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div align="center">
+            <button type="submit" name="delete" value="delete" class="btn btn-danger">Delete Selected</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
