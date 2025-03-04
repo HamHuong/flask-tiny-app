@@ -23,6 +23,17 @@ if os.path.exists(POSTS_FILE):
         posts = json.load(f)
 else:
     posts = []
+    # Thêm dữ liệu giả lập: 50 bài viết cho user1, user2
+    for i in range(1, 51):
+        user = 'user1' if i % 2 == 0 else 'user2'  # Xen kẽ giữa user1 và user2
+        posts.append({
+            'id': i,
+            'content': f'This is a sample post number {i} by {user}.',
+            'user': user
+        })
+    # Lưu posts giả lập vào file
+    with open(POSTS_FILE, 'w') as f:
+        json.dump(posts, f)
 
 # Hàm lưu users vào file JSON
 def save_users():

@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # Import blueprints và biến users, posts từ auth
 from .views import views
-from .auth import auth, users, posts, save_users, save_posts  # Import thêm save_posts
+from .auth import auth, users, posts, save_users, save_posts
 
 def create_app():
     app = Flask(__name__)
@@ -14,18 +14,29 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    # Route cho blog
+    # Route cho blog với phân trang
     @app.route('/', methods=['GET', 'POST'])
     def blog():
         if 'username' not in session:
             return redirect(url_for('auth.login'))
+        
         if request.method == 'POST':
             content = request.form['content']
             posts.append({'id': len(posts) + 1, 'content': content, 'user': session['username']})
             save_posts()  # Lưu posts vào file sau khi thêm
             print(f"Posts after adding: {posts}")  # Debug
             flash('Post added successfully!', 'success')
-        return render_template('blog.html', posts=posts)
+
+        # Phân trang
+        page = request.args.get('page', 1, type=int)  # Lấy số trang từ query string, mặc định là trang 1
+        per_page = 10  # Số bài viết mỗi trang
+        total = len(posts)  # Tổng số bài viết
+        start = (page - 1) * per_page  # Vị trí bắt đầu của trang
+        end = start + per_page  # Vị trí kết thúc của trang
+        paginated_posts = posts[start:end]  # Lấy bài viết cho trang hiện tại
+        total_pages = (total + per_page - 1) // per_page  # Tính tổng số trang
+
+        return render_template('blog.html', posts=paginated_posts, page=page, total_pages=total_pages)
 
     # Route cho trang admin
     @app.route('/admin', methods=['GET', 'POST'])
@@ -67,7 +78,7 @@ def create_app():
         filtered_users = {username: user for username, user in users.items() if username != 'admin'}
         return render_template('admin.html', users=filtered_users)
 
-    # Route cho quản lý bài viết
+    # Route cho quản lý bài viết với phân trang
     @app.route('/posts', methods=['GET', 'POST'])
     def manage_posts():
         if 'username' not in session:
@@ -88,6 +99,16 @@ def create_app():
 
         # Lọc bài viết của người dùng hiện tại
         user_posts = [post for post in posts if post['user'] == session['username']]
-        return render_template('posts.html', posts=user_posts)
+
+        # Phân trang
+        page = request.args.get('page', 1, type=int)  # Lấy số trang từ query string, mặc định là trang 1
+        per_page = 10  # Số bài viết mỗi trang
+        total = len(user_posts)  # Tổng số bài viết
+        start = (page - 1) * per_page  # Vị trí bắt đầu của trang
+        end = start + per_page  # Vị trí kết thúc của trang
+        paginated_posts = user_posts[start:end]  # Lấy bài viết cho trang hiện tại
+        total_pages = (total + per_page - 1) // per_page  # Tính tổng số trang
+
+        return render_template('posts.html', posts=paginated_posts, page=page, total_pages=total_pages)
 
     return app
