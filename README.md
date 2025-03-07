@@ -29,8 +29,9 @@
 
 3. Xây dựng và chạy chương trình
    - Nếu dùng docker
-    ``` bash
+      ``` bash
     docker-compose up --build
    - Nếu dùng môi trường ảo:
-    ``` bash
+     ``` bash
     python app.py
+   
