@@ -1,7 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<div class="container">
-    <h3 align="center">Welcome to Flask Tiny App!</h3>
+<div class="container py-5 text-center" style="background: linear-gradient(135deg, #e6f3fa 0%, #f0f8ff 100%); min-height: 70vh; border-radius: 15px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+    <h1 class="display-4 mb-4" style="color:rgb(38, 147, 230) ;">Welcome to Blog App !</h1>
+    {% if session.username %}
+        <p class="lead mb-4">Hello, {{ session.username }}! Ready to share your thoughts?</p>
+    {% else %}
+        <p class="lead mb-4">A simple platform to create and manage your blog posts. Sign up or log in to get started!</p>
+    {% endif %}
+    
+  
+    
+    <a href="{% if session.username %}/{% else %}/login{% endif %}" class="btn btn-primary btn-lg">{% if session.username %}Go to Blog{% else %}Get Started{% endif %}</a>
+ 
+    <p class="mt-4 text-muted">Join our community and start blogging today!</p>
 </div>
 {% endblock %}

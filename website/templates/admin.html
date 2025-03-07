@@ -13,21 +13,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for username, user in users.items() %}
+            {% for user in users %}
                 <tr>
-                    <td>{{ username }}</td>
+                    <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ 'Blocked' if user.blocked else 'Active' }}</td>
                     <td>
-                        <!-- Form cho nút Block -->
+                        {% if user.blocked %}
+                            <!-- Nút Unblock -->
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="username" value="{{ user.username }}">
+                                <input type="hidden" name="action" value="unblock">
+                                <button type="submit" class="btn btn-success btn-sm">Unblock</button>
+                            </form>
+                        {% else %}
+                            <!-- Nút Block -->
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="username" value="{{ user.username }}">
+                                <input type="hidden" name="action" value="block">
+                                <button type="submit" class="btn btn-danger btn-sm">Block</button>
+                            </form>
+                        {% endif %}
+                        <!-- Nút Reset Password -->
                         <form method="POST" style="display: inline;">
-                            <input type="hidden" name="username" value="{{ username }}">
-                            <input type="hidden" name="action" value="block">
-                            <button type="submit" class="btn btn-danger btn-sm">Block</button>
-                        </form>
-                        <!-- Form cho nút Reset Password -->
-                        <form method="POST" style="display: inline;">
-                            <input type="hidden" name="username" value="{{ username }}">
+                            <input type="hidden" name="username" value="{{ user.username }}">
                             <input type="hidden" name="action" value="reset">
                             <button type="submit" class="btn btn-warning btn-sm">Reset Password</button>
                         </form>

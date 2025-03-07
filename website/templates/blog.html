@@ -3,9 +3,6 @@
 {% block content %}
 <div class="container">
     <h3 align="center">Write a Blog</h3>
-    {% if session.username %}
-        <p>Welcome, {{ session.username }}! <a href="/logout">Log Out</a></p>
-    {% endif %}
     <form method="POST">
         <div class="form-group">
             <label for="content">Blog Content</label>
