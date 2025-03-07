@@ -1,4 +1,4 @@
-# Flask Tiny App
+# Blog Web 
 
 ## Thông tin cá nhân
 - Họ tên: Kiều Trương Hàm Hương
@@ -34,4 +34,8 @@
    - Nếu dùng môi trường ảo:
      ``` bash
      python app.py
+
+4. Link dự án
+   http://127.0.0.1:5000/
+
    
