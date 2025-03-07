@@ -31,6 +31,6 @@
    - Nếu dùng docker
     ``` bash
     docker-compose up --build
-    - Nếu dùng môi trường ảo:
+   - Nếu dùng môi trường ảo:
     ``` bash
     python app.py
